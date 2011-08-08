@@ -465,7 +465,9 @@ static NSMutableDictionary* gNamedCaches = nil;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)imageForURL:(NSString*)URL {
-  return [self imageForURL:URL fromDisk:YES];
+  id image = [self imageForURL:URL fromDisk:YES];
+  TTDCONDITIONLOG(TTDFLAG_URLCACHE, @"TTURL imageForURL (%@) => (%@)", URL, image);
+  return image;
 }
 
 
