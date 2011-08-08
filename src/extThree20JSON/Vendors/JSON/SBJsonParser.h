@@ -28,7 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SBJsonBase.h"
+#import "extThree20JSON/private/SBJsonBase.h"
 
 /**
  @brief The JSON parser class.
