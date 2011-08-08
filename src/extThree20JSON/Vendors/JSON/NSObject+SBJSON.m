@@ -42,7 +42,7 @@ TT_FIX_CATEGORY_BUG(NSObject_SBJSON)
     SBJsonWriter *jsonWriter = [SBJsonWriter new];
     NSString *json = [jsonWriter stringWithObject:self];
     if (!json)
-        NSLog(@"-JSONRepresentation failed. Error trace is: %@", [jsonWriter errorTrace]);
+        NSLog(@"-JSONRepresentation failed. Error trace is: %@", jsonWriter.errorTrace);
     [jsonWriter release];
     return json;
 }

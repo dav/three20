@@ -49,8 +49,8 @@
 - (sbjson_token_t)matchString;
 - (sbjson_token_t)matchNumber;
 
-- (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)index;
-- (NSString*)decodeUnicodeEscape:(const char *)bytes index:(NSUInteger *)index;
+- (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)in_index;
+- (NSString*)decodeUnicodeEscape:(const char *)bytes index:(NSUInteger *)in_index;
 
 @end
 
@@ -316,25 +316,25 @@ again: while (i < len) {
     return ret;
 }
 
-- (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)index {
-	int hi = [self decodeHexQuad:bytes + *index];
+- (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)in_index {
+	int hi = [self decodeHexQuad:bytes + *in_index];
 	if (hi == -2) return -2; // EOF
 	if (hi < 0) {
 		self.error = @"Missing hex quad";
 		return -1;
 	}
-	*index += 4;
+	*in_index += 4;
 	
 	if (CFStringIsSurrogateHighCharacter(hi)) {
 		int lo = -1;
-		if (bytes[(*index)++] == '\\' && bytes[(*index)++] == 'u')
-			lo = [self decodeHexQuad:bytes + *index];
+		if (bytes[(*in_index)++] == '\\' && bytes[(*in_index)++] == 'u')
+			lo = [self decodeHexQuad:bytes + *in_index];
 		
 		if (lo < 0) {
 			self.error = @"Missing low character in surrogate pair";
 			return -1;
 		}
-		*index += 4;
+		*in_index += 4;
 			
 		if (!CFStringIsSurrogateLowCharacter(lo)) {
 			self.error = @"Invalid low surrogate char";
@@ -349,24 +349,24 @@ again: while (i < len) {
 	return hi;
 }
 
-- (NSString*)decodeUnicodeEscape:(const char *)bytes index:(NSUInteger *)index {
-	unichar hi = [self decodeHexQuad:bytes + *index];
-	if (hi < 0) {
+- (NSString*)decodeUnicodeEscape:(const char *)bytes index:(NSUInteger *)in_index {
+	unichar hi = [self decodeHexQuad:bytes + *in_index];
+	if ((short)hi < 0) {
 		self.error = @"Missing hex quad";
 		return nil;
 	}
-	*index += 4;
+	*in_index += 4;
 
 	if (CFStringIsSurrogateHighCharacter(hi)) {     // high surrogate char?
 		int lo = -1;
-		if (bytes[(*index)++] == '\\' && bytes[(*index)++] == 'u')
-			lo = [self decodeHexQuad:bytes + *index];
+		if (bytes[(*in_index)++] == '\\' && bytes[(*in_index)++] == 'u')
+			lo = [self decodeHexQuad:bytes + *in_index];
 			
 		if (lo < 0) {
 			self.error = @"Missing low character in surrogate pair";
 			return nil;
 		}
-		*index += 4;
+		*in_index += 4;
 			
 		if (!CFStringIsSurrogateLowCharacter(lo)) {
 			self.error = @"Invalid low surrogate char";

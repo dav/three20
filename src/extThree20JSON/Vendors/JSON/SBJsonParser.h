@@ -28,6 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "SBJsonBase.h"
 
 /**
  @brief The JSON parser class.
@@ -51,21 +52,11 @@
  
  */
 
-@interface SBJsonParser : NSObject {
+@interface SBJsonParser : SBJsonBase {
 	id value;
 	NSString *error;
-    NSUInteger depth, maxDepth;
 
 }
-
-/**
- @brief The maximum recursing depth.
- 
- Defaults to 512. If the input is nested deeper than this the input will be deemed to be
- malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
- turn off this security feature by setting the maxDepth value to 0.
- */
-@property NSUInteger maxDepth;
 
 /**
  @brief Return an error trace, or nil if there was no errors.

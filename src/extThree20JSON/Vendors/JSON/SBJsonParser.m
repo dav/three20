@@ -37,7 +37,6 @@
 
 @implementation SBJsonParser
 
-@synthesize maxDepth;
 @synthesize error;
 
 #pragma mark SBJsonStreamParserAdapterDelegate

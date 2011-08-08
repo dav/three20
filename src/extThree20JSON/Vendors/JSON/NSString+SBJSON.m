@@ -43,7 +43,7 @@ TT_FIX_CATEGORY_BUG(NSString_SBJSON)
     SBJsonParser *jsonParser = [SBJsonParser new];
     id repr = [jsonParser objectWithString:self];
     if (!repr)
-        NSLog(@"-JSONValue failed. Error trace is: %@", [jsonParser errorTrace]);
+        NSLog(@"-JSONValue failed. Error trace is: %@", jsonParser.errorTrace);
     [jsonParser release];
     return repr;
 }
