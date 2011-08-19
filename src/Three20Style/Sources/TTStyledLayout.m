@@ -709,7 +709,6 @@
 
   NSInteger stringIndex = 0;
   NSInteger lineStartIndex = 0;
-  CGFloat frameWidth = 0;
   NSInteger frameStart = 0;
 
   while (stringIndex < length) {
@@ -738,7 +737,7 @@
           NSRange lineRange = NSMakeRange(lineStartIndex, stringIndex - lineStartIndex);
           if (lineRange.length) {
             NSString* line = [text substringWithRange:lineRange];
-            frameWidth = [[text substringWithRange:NSMakeRange(frameStart,
+            CGFloat frameWidth = [[text substringWithRange:NSMakeRange(frameStart,
                                                                stringIndex - frameStart)]
                           sizeWithFont:_font].width;
             [self addFrameForText:line element:element node:textNode width:frameWidth
@@ -761,6 +760,7 @@
       NSRange lineRange = NSMakeRange(lineStartIndex, stringIndex - lineStartIndex);
       if (lineRange.length) {
         NSString* line = [text substringWithRange:lineRange];
+        CGFloat frameWidth;
         frameWidth = [[text substringWithRange:NSMakeRange(frameStart, stringIndex - frameStart)]
                       sizeWithFont:_font].width;
         [self addFrameForText:line element:element node:textNode width:frameWidth
@@ -777,6 +777,7 @@
         NSRange lineRange = NSMakeRange(lineStartIndex, stringIndex - lineStartIndex);
         if (lineRange.length) {
           NSString* line = [text substringWithRange:lineRange];
+          CGFloat frameWidth;
           frameWidth = [[text substringWithRange:NSMakeRange(frameStart, stringIndex - frameStart)]
                         sizeWithFont:_font].width;
           [self addFrameForText:line element:element node:textNode width:frameWidth
@@ -814,11 +815,11 @@
         NSRange lineRange = NSMakeRange(lineStartIndex, (wordRange.location + wordRange.length)
                                                         - lineStartIndex);
         NSString* line = !_lineWidth ? word : [text substringWithRange:lineRange];
+        CGFloat frameWidth;
         frameWidth = [[text substringWithRange:NSMakeRange(frameStart, stringIndex - frameStart)]
                       sizeWithFont:_font].width;
         [self addFrameForText:line element:element node:textNode width:frameWidth
               height:[_font ttLineHeight]];
-        frameWidth = 0;
       }
     }
   }
