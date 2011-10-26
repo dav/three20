@@ -110,7 +110,7 @@ BOOL TTIsPad() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 UIDeviceOrientation TTDeviceOrientation() {
-  UIDeviceOrientation orient = [UIApplication sharedApplication].statusBarOrientation;
+  UIDeviceOrientation orient = [[UIDevice currentDevice] orientation];
   if (UIDeviceOrientationUnknown == orient) {
     return UIDeviceOrientationPortrait;
 
