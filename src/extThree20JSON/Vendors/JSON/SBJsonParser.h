@@ -28,6 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "SBJsonBase.h"
 
 /**
  @brief Parse JSON Strings and NSData objects
@@ -42,7 +43,6 @@
 
 @private
 	NSString *error;
-    NSUInteger depth, maxDepth;
 
 }
 

@@ -34,7 +34,6 @@
 
 @implementation SBJsonParser
 
-@synthesize maxDepth;
 @synthesize error;
 
 - (id)init {

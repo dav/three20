@@ -42,7 +42,6 @@
 @synthesize humanReadable;
 
 @synthesize error;
-@synthesize maxDepth;
 
 - (id)init {
     self = [super init];
