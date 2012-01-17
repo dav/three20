@@ -37,6 +37,12 @@
 
 static const NSInteger kLoadMaxRetries = 2;
 
+@interface  TTRequestLoader (PrivateMethods)
+- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSHTTPURLResponse*)response;
+- (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data;
+- (NSCachedURLResponse *)connection: (NSURLConnection *)connection willCacheResponse: (NSCachedURLResponse *)cachedResponse;
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
+@end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +106,7 @@ static const NSInteger kLoadMaxRetries = 2;
     // Strictly speaking, to be really conformant need to interpret %xx hex encoded entities.
     // The [NSString dataUsingEncoding] doesn't do that correctly, but most documents don't use that.
     // Skip for now.
-	_responseData = [[[dataSplit objectAtIndex:1] dataUsingEncoding:NSASCIIStringEncoding] retain];
+	_responseData = [[[[dataSplit objectAtIndex:1] dataUsingEncoding:NSASCIIStringEncoding] mutableCopy] retain];
   } else {
     _responseData = [[NSData dataWithBase64EncodedString:[dataSplit objectAtIndex:1]] retain];
   }
