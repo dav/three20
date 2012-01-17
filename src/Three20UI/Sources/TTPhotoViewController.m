@@ -380,7 +380,7 @@ static const NSInteger kActivityLabelTag          = 96;
       NSDictionary* query = [NSDictionary dictionaryWithObject:self forKey:@"delegate"];
       TTBaseNavigator* navigator = [TTBaseNavigator navigatorForView:self.view];
       _thumbsController = (TTThumbsViewController*)
-                  [[navigator viewControllerForURL:URL query:query] retain];
+                              [[navigator viewControllerForURL:URL query:query] retain];
       [navigator.URLMap setObject:_thumbsController forURL:URL];
 
     } else {
