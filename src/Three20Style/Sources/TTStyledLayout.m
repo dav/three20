@@ -623,8 +623,8 @@
     ? [[TTStyleSheet globalStyleSheet] styleWithSelector:imageNode.className] : nil;
   TTBoxStyle* padding = style ? [style firstStyleOfClass:[TTBoxStyle class]] : nil;
 
-  CGFloat imageWidth = imageNode.width ? imageNode.width : image.size.width;
-  CGFloat imageHeight = imageNode.height ? imageNode.height : image.size.height;
+  CGFloat imageWidth = imageNode.width ? imageNode.width : (image!=nil ? image.size.width : 0);
+  CGFloat imageHeight = imageNode.height ? imageNode.height : (image!=nil ? image.size.height : 0);
   CGFloat contentWidth = imageWidth;
   CGFloat contentHeight = imageHeight;
 
