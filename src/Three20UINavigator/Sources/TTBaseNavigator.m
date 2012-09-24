@@ -27,7 +27,7 @@
 #import "Three20UINavigator/UIViewController+TTNavigator.h"
 
 // UINavigator (private)
-#import "Three20UINavigator/private/TTBaseNavigatorInternal.h"
+#import "Three20UINavigator/TTBaseNavigatorInternal.h"
 
 // UICommon
 #import "Three20UICommon/UIView+TTUICommon.h"
@@ -693,7 +693,7 @@ __attribute__((weak_import));
       }
 
     } else {
-      id object = [_URLMap objectForURL:baseURL query:nil pattern:pattern];
+      id object = [_URLMap objectForURL:baseURL query:nil pattern:(TTURLNavigatorPattern**)pattern];
       if (object) {
         id result = [_URLMap dispatchURL:URL toTarget:object query:query];
         if ([result isKindOfClass:[UIViewController class]]) {
@@ -709,7 +709,7 @@ __attribute__((weak_import));
     }
   }
 
-  id object = [_URLMap objectForURL:URL query:query pattern:pattern];
+  id object = [_URLMap objectForURL:URL query:query pattern:(TTURLNavigatorPattern**)pattern];
   if (object) {
     UIViewController* controller = object;
     controller.originalNavigatorURL = URL;
